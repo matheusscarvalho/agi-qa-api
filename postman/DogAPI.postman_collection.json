@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "Dog API - QA (Blog do Agi)",
+    "description": "Coleção de testes da Dog API (https://dog.ceo/dog-api). Execução via Postman ou Newman.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://dog.ceo/api" }
+  ],
+  "item": [
+    {
+      "name": "GET /breeds/list/all",
+      "request": { "method": "GET", "url": "{{baseUrl}}/breeds/list/all" },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('status success', () => pm.expect(body.status).to.eql('success'));",
+              "pm.test('message é objeto não vazio', () => {",
+              "  pm.expect(body.message).to.be.an('object');",
+              "  pm.expect(Object.keys(body.message).length).to.be.above(0);",
+              "});",
+              "pm.test('contém raças conhecidas', () => {",
+              "  pm.expect(body.message).to.have.property('bulldog');",
+              "  pm.expect(body.message).to.have.property('hound');",
+              "});",
+              "pm.test('tempo de resposta < 5s', () => pm.expect(pm.response.responseTime).to.be.below(5000));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET /breed/{breed}/images - válida",
+      "request": { "method": "GET", "url": "{{baseUrl}}/breed/hound/images" },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('status success', () => pm.expect(body.status).to.eql('success'));",
+              "pm.test('message é lista não vazia', () => {",
+              "  pm.expect(body.message).to.be.an('array').that.is.not.empty;",
+              "});",
+              "pm.test('toda imagem é URL válida', () => {",
+              "  body.message.forEach(u => pm.expect(u).to.match(/^https?:\\/\\/images\\.dog\\.ceo\\/breeds\\/.+\\.(jpg|jpeg|png)$/));",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET /breed/{breed}/images - inexistente (404)",
+      "request": { "method": "GET", "url": "{{baseUrl}}/breed/racainexistente123/images" },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 404', () => pm.response.to.have.status(404));",
+              "const body = pm.response.json();",
+              "pm.test('status error', () => pm.expect(body.status).to.eql('error'));",
+              "pm.test('code 404', () => pm.expect(body.code).to.eql(404));",
+              "pm.test('mensagem de not found', () => pm.expect(body.message.toLowerCase()).to.include('not found'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET /breeds/image/random",
+      "request": { "method": "GET", "url": "{{baseUrl}}/breeds/image/random" },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('status 200', () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test('status success', () => pm.expect(body.status).to.eql('success'));",
+              "pm.test('message é URL de imagem válida', () => {",
+              "  pm.expect(body.message).to.match(/^https?:\\/\\/images\\.dog\\.ceo\\/breeds\\/.+\\.(jpg|jpeg|png)$/);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
