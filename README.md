@@ -50,11 +50,33 @@ mvn test
 
 Excluir um grupo: `mvn test -DexcludedGroups=exception`.
 
-Apontar para outro ambiente:
+### Ambientes de execução (dev / qa / prod)
+
+As configurações por ambiente ficam em
+[`src/test/resources/environments/`](src/test/resources/environments/), um
+arquivo `.properties` por ambiente. Selecione com `-Denv` (padrão: `dev`):
+
+```bash
+mvn test -Denv=qa
+mvn test -Denv=prod -Dgroups=smoke
+```
+
+Sobrepor pontualmente sem trocar de arquivo:
 
 ```bash
 mvn test -DbaseUri=https://staging.dog.ceo
 ```
+
+Precedência: `-DbaseUri` > arquivo do `-Denv` > padrão do código.
+
+## Qualidade (formatação)
+
+```bash
+mvn spotless:check     # verifica a formatação (imports, espaços, newline)
+mvn spotless:apply     # aplica a formatação
+```
+
+O `spotless:check` também roda no CI antes dos testes.
 
 ## Relatório de resultados
 
