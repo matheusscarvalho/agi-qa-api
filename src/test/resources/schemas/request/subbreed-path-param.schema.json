@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["breed", "subBreed"],
+  "properties": {
+    "breed": { "type": "string", "minLength": 1, "pattern": "^[a-z]+$" },
+    "subBreed": { "type": "string", "minLength": 1, "pattern": "^[a-z]+$" }
+  }
+}
