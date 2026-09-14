@@ -26,6 +26,9 @@ jobs:
           java-version: '17'
           cache: maven
 
+      - name: Verificar formatação (Spotless)
+        run: mvn -B spotless:check
+
       - name: Executar testes (grupo ${{ env.GROUPS }})
         run: mvn -B test -Dgroups=${{ env.GROUPS }}
 

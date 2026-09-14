@@ -1,9 +1,10 @@
 package com.agi.dogapi.support;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import java.util.Map;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 // Dog API é GET-only: o contrato de envio é validado sobre os path params.
 // O mesmo mecanismo serve para o body de um POST/PUT quando existir.

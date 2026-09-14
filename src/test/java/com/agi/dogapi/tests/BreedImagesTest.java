@@ -1,11 +1,18 @@
 package com.agi.dogapi.tests;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import com.agi.dogapi.clients.DogApiClient;
 import com.agi.dogapi.models.ImagesResponse;
 import com.agi.dogapi.support.BaseApiTest;
 import com.agi.dogapi.support.ContractValidator;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -13,21 +20,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.List;
-import java.util.Map;
-
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 @DisplayName("GET /breed/{breed}/images")
 @Tag("regression")
 @Tag("api")
 class BreedImagesTest extends BaseApiTest {
-
-    private static final String IMG_PATTERN =
-            "^https://images\\.dog\\.ceo/breeds/.+\\.(jpg|jpeg|png)$";
 
     private DogApiClient api;
 

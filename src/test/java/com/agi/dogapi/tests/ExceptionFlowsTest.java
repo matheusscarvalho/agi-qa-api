@@ -1,5 +1,9 @@
 package com.agi.dogapi.tests;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 import com.agi.dogapi.clients.DogApiClient;
 import com.agi.dogapi.models.ErrorResponse;
 import com.agi.dogapi.support.BaseApiTest;
@@ -12,10 +16,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 @DisplayName("Casos de exceção da Dog API")
 @Tag("regression")
