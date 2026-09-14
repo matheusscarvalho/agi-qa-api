@@ -1,0 +1,17 @@
+# Build Maven
+target/
+*.class
+dependency-reduced-pom.xml
+
+# Editores / IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# SO / logs
+.DS_Store
+Thumbs.db
+*.log
