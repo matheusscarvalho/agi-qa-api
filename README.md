@@ -108,7 +108,9 @@ agi-qa-api/
 │       ├── RandomImageTest.java
 │       ├── AlternativeFlowsTest.java # sub-raças, random por raça, N imagens
 │       └── ExceptionFlowsTest.java   # 404, 405, rota inexistente
-├── src/test/resources/schemas/       # JSON Schemas (respostas + request/)
+├── src/test/resources/
+│   ├── environments/                 # dev/qa/prod.properties (mvn test -Denv=qa)
+│   └── schemas/                      # JSON Schemas (respostas + request/)
 ├── postman/                          # coleção Postman/Newman (bônus)
 └── .github/workflows/api.yml
 ```
